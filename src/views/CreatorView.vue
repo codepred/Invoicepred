@@ -16,7 +16,7 @@ const props = defineProps({
 
 <template>
     <div style="padding-bottom: 100px; max-width: 1200px">
-        <div style="display: flex; justify-content: center; flex-direction: column; gap: 20px;">
+        <div style="display: flex; justify-content: center; flex-direction: column; gap: 20px;" datatest-id="creator-panel">
             <CreatorPanel :currency="props.chosenCurrency" :language="props.chosenLanguage" />
         </div>
     </div>

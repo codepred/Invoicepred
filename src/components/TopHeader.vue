@@ -38,14 +38,14 @@ watch(chosenLanguage, () => {
       </div>
       <div style="display: flex; gap: 15px;">
         <div style="display: flex; gap: 20px; align-items: center; width: fit-content;">
-          <select class="input-class" v-model="chosenLanguage" style="height: 40px; padding: 0px 12px;">
+          <select class="input-class" v-model="chosenLanguage" style="height: 40px; padding: 0px 12px;" data-testid="select-language" >
             <option v-for="language in props.languageList" :value="language?.value">
               {{ language?.name }}
             </option>
           </select>
         </div>
         <div style="display: flex; gap: 20px; align-items: center; width: fit-content;">
-          <select class="input-class" v-model="chosenCurrency" style="height: 40px; padding: 0px 12px;">
+          <select class="input-class" v-model="chosenCurrency" style="height: 40px; padding: 0px 12px;" data-testid="select-currency" > 
             <option v-for="currency in props.currencyList" :value="currency?.sign">
               {{ currency?.name }}
             </option>

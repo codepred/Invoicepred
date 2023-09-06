@@ -184,7 +184,7 @@ onMounted(async () => {
 
 <template>
     <!-- desktop version -->
-    <div class="main-panel display-desktop" style="flex-direction: column;">
+    <div class="main-panel display-desktop" style="flex-direction: column;" >
         <div class="main-panel-splitted">
             <div>
                 <span class="placeholder-text" style=" width: 80%;" v-if="invoiceSettings.number?.toString().length !== 0">

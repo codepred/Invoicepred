@@ -60,7 +60,7 @@ export default {
 
 <template>
     <div>
-        <button class="main-button" style="min-width: 170px; gap: 10px; background-color: #383A4C;"
+        <button class="main-button" style="min-width: 170px; gap: 10px; background-color: #383A4C;" data-testid="download-pdf"
             @click="generateReport()">
             <IconDownload />
             {{ buttonText }}
