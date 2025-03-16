@@ -72,7 +72,7 @@ onMounted(() => {
   <div
     style="top: 48px; padding: 40px 48px 0px 48px; background-color: #FAFAFA; min-height: calc(100vh - 48px); width: 100%; display: flex; justify-content: center;"
     class="remove-padding">
-    <div class="main-container">
+    <div class="main-container" style="width: 100%;">
       <!-- {{ isPageBeingLoaded }}
       <SpinnerModal v-if="isPageBeingLoaded" /> -->
       <RouterView :chosenCurrency="chosenCurrency" :chosenLanguage="chosenLanguage"
@@ -82,4 +82,10 @@ onMounted(() => {
   <FooterHeader />
 </template>
 
-<style scoped></style>
+<style scoped>
+@media (max-width: 900px) {
+    .remove-padding {
+        padding: 0px !important;
+    }
+}
+</style>

@@ -57,6 +57,10 @@
         {
             "name": "GBP",
             "sign": "£"
+        },
+        {
+            "name": "CZK",
+            "sign": "CZK"
         }
     ],
     "languageList": [
