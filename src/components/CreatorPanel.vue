@@ -154,7 +154,7 @@ const addNewRow = () => {
     })
 }
 
-const calculateValues = (index: number, key: string) => {
+const calculateValues = (index: number, key: keyof ItemList) => {
     const item = itemList.value[index]
     const quantity = Number(item.quantity) || 0
     const netUnitValue = Number(item.netUnitValue) || 0
@@ -366,16 +366,16 @@ onMounted(async () => {
                 <tbody>
                     <tr v-for="(item, index) in itemList" :key="index">
                         <td><input class="input-class" v-model="item.name" :placeholder="useTranslation?.invoiceItems?.itemName"></td>
-                        <td><input class="input-class" :value="item.quantity" type="number" @input="handleInput(index, 'quantity', $event.target.value)" :placeholder="useTranslation?.invoiceItems?.quantity"></td>
+                        <td><input class="input-class" :value="item.quantity" type="number" @input="handleInput(index, 'quantity',  ($event.target as HTMLInputElement).value)" :placeholder="useTranslation?.invoiceItems?.quantity"></td>
                         <td><input class="input-class" v-model="item.unit" :placeholder="useTranslation?.invoiceItems?.unit"></td>
-                        <td><input class="input-class" :value="item.netUnitValue?.toFixed(2)" @input="handleInput(index, 'netUnitValue', $event.target.value)" :placeholder="useTranslation?.invoiceItems?.priceUnitNetto"></td>
+                        <td><input class="input-class" :value="item.netUnitValue?.toFixed(2)" @input="handleInput(index, 'netUnitValue',  ($event.target as HTMLInputElement).value)" :placeholder="useTranslation?.invoiceItems?.priceUnitNetto"></td>
                         <td>
                             <select class="input-class" v-model="item.vatRate" @change="calculateValues(index, 'vatRate')">
                                 <option v-for="rate in useTranslation?.vatRateList" :value="rate.value">{{ rate.name }}</option>
                             </select>
                         </td>
                         <td><input class="input-class" :value="item.netValue?.toFixed(2)" readonly :placeholder="useTranslation?.invoiceItems?.priceNetto"></td>
-                        <td><input class="input-class" :value="item.grossValue?.toFixed(2)" @input="handleInput(index, 'grossValue', $event.target.value)" :placeholder="useTranslation?.invoiceItems?.priceBrutto"></td>
+                        <td><input class="input-class" :value="item.grossValue?.toFixed(2)" @input="handleInput(index, 'grossValue',  ($event.target as HTMLInputElement).value)" :placeholder="useTranslation?.invoiceItems?.priceBrutto"></td>
                         <td style="width: 40px; height: 24px;"><IconRemovingTick @click="removeArrayRow(index)" v-if="index !== 0" /></td>
                     </tr>
                 </tbody>
@@ -399,7 +399,7 @@ onMounted(async () => {
                     <span class="placeholder-text" v-if="item.quantity?.toString().length !== 0">
                         <WrapText :msg="useTranslation?.invoiceItems?.quantity" />
                     </span>
-                    <input class="input-class" :value="item.quantity" type="number" @input="handleInput(index, 'quantity', $event.target.value)" :class="{ 'span-bottom': item.quantity?.toString().length !== 0 }" :placeholder="useTranslation?.invoiceItems?.quantity">
+                    <input class="input-class" :value="item.quantity" type="number" @input="handleInput(index, 'quantity', ($event.target as HTMLInputElement).value)" :class="{ 'span-bottom': item.quantity?.toString().length !== 0 }" :placeholder="useTranslation?.invoiceItems?.quantity">
                 </div>
                 <div style="width: 100%;">
                     <span class="placeholder-text" v-if="item.unit?.toString().length !== 0">
@@ -413,7 +413,7 @@ onMounted(async () => {
                     <span class="placeholder-text" v-if="item.netUnitValue?.toString().length !== 0">
                         <WrapText :msg="useTranslation?.invoiceItems?.priceUnitNetto" />
                     </span>
-                    <input class="input-class" :value="item.netUnitValue?.toFixed(2)" @input="handleInput(index, 'netUnitValue', $event.target.value)" :class="{ 'span-bottom': item.netUnitValue?.toString().length !== 0 }" :placeholder="useTranslation?.invoiceItems?.priceUnitNetto">
+                    <input class="input-class" :value="item.netUnitValue?.toFixed(2)" @input="handleInput(index, 'netUnitValue',  ($event.target as HTMLInputElement).value)" :class="{ 'span-bottom': item.netUnitValue?.toString().length !== 0 }" :placeholder="useTranslation?.invoiceItems?.priceUnitNetto">
                 </div>
                 <div style="width: 100%;">
                     <span class="placeholder-text" v-if="item.vatRate?.toString().length !== 0">
@@ -435,7 +435,7 @@ onMounted(async () => {
                     <span class="placeholder-text" v-if="item.grossValue?.toString().length !== 0">
                         <WrapText :msg="useTranslation?.invoiceItems?.priceBrutto" />
                     </span>
-                    <input class="input-class" :value="item.grossValue?.toFixed(2)" @input="handleInput(index, 'grossValue', $event.target.value)" :class="{ 'span-bottom': item.grossValue?.toString().length !== 0 }" :placeholder="useTranslation?.invoiceItems?.priceBrutto">
+                    <input class="input-class" :value="item.grossValue?.toFixed(2)" @input="handleInput(index, 'grossValue',  ($event.target as HTMLInputElement).value)" :class="{ 'span-bottom': item.grossValue?.toString().length !== 0 }" :placeholder="useTranslation?.invoiceItems?.priceBrutto">
                 </div>
             </div>
         </div>
