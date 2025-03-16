@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  invoices-frontend:
+    image: invoices-frontend:latest
+    container_name: invoices-frontend
+    ports:
+      - 8999:80
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    networks:
+      - invoices-net
+    restart: unless-stopped
+
+networks:
+  invoices-net:
+    name: invoices-net
+
