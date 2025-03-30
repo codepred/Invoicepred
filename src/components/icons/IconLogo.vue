@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 const redirectToMainPage = () => {
-    window.location.href = "https://codepred.com";
+    window.location.href = "https://codepred.pl";
 }
 
 </script>
