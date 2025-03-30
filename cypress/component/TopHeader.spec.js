@@ -1,5 +1,5 @@
 beforeEach(() => {
-  cy.visit('https://invoicepred.com/creator') // Adjust the URL as needed
+  cy.visit('https://invoicepred.com/creator')
 })
 
 describe('Header Component', () => {
@@ -9,11 +9,11 @@ describe('Header Component', () => {
   })
 
   it('allows selecting a language', () => {
-    cy.get('[data-testid="select-language"').select('English') // Adjust the option value as needed
+    cy.get('[data-testid="select-language"').select('English')
   })
 
   it('allows selecting a currency', () => {
-    cy.get('[data-testid="select-currency"').select('USD') // Adjust the option value as needed
+    cy.get('[data-testid="select-currency"').select('USD')
   })
 })
 

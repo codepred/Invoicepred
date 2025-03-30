@@ -5,7 +5,6 @@ import FooterHeader from './components/FooterHeader.vue';
 import englishTranslation from './assets/englishTranslation.json'
 import polishTranslation from './assets/polishTranslation.json'
 import { ref, onMounted, watch } from 'vue'
-// import SpinnerModal from './components/modals/SpinnerModal.vue';
 
 const useTranslation = ref<typeof englishTranslation | typeof polishTranslation>(englishTranslation)
 
@@ -45,8 +44,6 @@ const getLocalStorageData = (action: string) => {
 
     localStorage.setItem('invoice-currency', window.PICKED_CURRENCY)
     localStorage.setItem('invoice-language', window.PICKED_LANGUAGE)
-
-
   }
 }
 
@@ -73,8 +70,6 @@ onMounted(() => {
     style="top: 48px; padding: 40px 48px 0px 48px; background-color: #FAFAFA; min-height: calc(100vh - 48px); width: 100%; display: flex; justify-content: center;"
     class="remove-padding">
     <div class="main-container" style="width: 100%;">
-      <!-- {{ isPageBeingLoaded }}
-      <SpinnerModal v-if="isPageBeingLoaded" /> -->
       <RouterView :chosenCurrency="chosenCurrency" :chosenLanguage="chosenLanguage"
         @update:isPageBeingLoaded="isPageBeingLoaded = $event" />
     </div>
