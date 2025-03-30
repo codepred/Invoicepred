@@ -4,7 +4,7 @@
 
 ## 🌐 Web Page
 - **Application URL:** [Invoicepred](https://invoicepred.com/)
-- **Our Website:** [CodePred](https://codepred.com/)
+- **Our Website:** [CodePred](https://codepred.pl/)
 
 📧 **Contact Us:** [kontakt@codepred.pl](mailto:kontakt@codepred.pl)
 
