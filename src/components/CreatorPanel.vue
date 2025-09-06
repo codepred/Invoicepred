@@ -22,18 +22,6 @@ const props = defineProps({
 const displayError = ref<boolean>(false)
 const errorMsg = ref<string>("")
 
-const formatDate = (isoDate: string) => {
-    if (!isoDate) return '';
-    const [year, month, day] = isoDate.split('-');
-    return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
-};
-
-const parseDate = (formattedDate: string) => {
-    if (!formattedDate) return '';
-    const [day, month, year] = formattedDate.split('/');
-    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-};
-
 interface ItemList {
     name: string;
     quantity: number | null;
@@ -93,33 +81,12 @@ const invoiceSettings: Ref<InvoiceSettings> = ref({
     notes: ""
 })
 
-const saleDate = computed({
-    get: () => formatDate(invoiceSettings.value.saleDate),
-    set: (val) => {
-        invoiceSettings.value.saleDate = parseDate(val);
-        setDefaultDueDate();
-    }
-});
-
-const dueDate = computed({
-    get: () => formatDate(invoiceSettings.value.dueDate),
-    set: (val) => {
-        invoiceSettings.value.dueDate = parseDate(val);
-        dueDateModified.value = true;
-    }
-});
-
-const issueDate = computed({
-    get: () => formatDate(invoiceSettings.value.issueDate),
-    set: (val) => invoiceSettings.value.issueDate = parseDate(val)
-});
-
 const setDefaultDueDate = () => {
     if (!dueDateModified.value && invoiceSettings.value.saleDate) {
-        const saleDate = new Date(invoiceSettings.value.saleDate)
-        const dueDate = new Date(saleDate)
-        dueDate.setDate(dueDate.getDate() + 14)
-        invoiceSettings.value.dueDate = dueDate.toISOString().split('T')[0]
+        const saleDate = new Date(invoiceSettings.value.saleDate);
+        const dueDate = new Date(saleDate);
+        dueDate.setDate(dueDate.getDate() + 14);
+        invoiceSettings.value.dueDate = dueDate.toISOString().split('T')[0];
     }
 }
 
@@ -212,7 +179,7 @@ onMounted(async () => {
                 <span class="placeholder-text" v-if="invoiceSettings.number?.toString().length !== 0">
                     <WrapText :msg="useTranslation?.invoiceTerms?.number" />
                 </span>
-                <input class="input-class" :placeholder="useTranslation?.invoiceTerms?.number" maxlength="30"
+                <input :key="'number'" class="input-class" :placeholder="useTranslation?.invoiceTerms?.number" maxlength="30"
                     v-bind:class="{ 'span-bottom': invoiceSettings.number?.toString().length !== 0 }"
                     v-model="invoiceSettings.number">
             </div>
@@ -220,7 +187,7 @@ onMounted(async () => {
                 <span class="placeholder-text">
                     <WrapText :msg="useTranslation?.invoiceTerms?.saleDate" />
                 </span>
-                <input class="input-class span-bottom" v-model="saleDate"
+                <input :key="'saleDate'" class="input-class span-bottom" v-model="invoiceSettings.saleDate" type="date"
                     pattern="\d{2}/\d{2}/\d{4}" title="DD/MM/YYYY format"
                     :placeholder="useTranslation?.invoiceTerms?.saleDate">
             </div>
@@ -228,7 +195,7 @@ onMounted(async () => {
                 <span class="placeholder-text" v-if="invoiceSettings.placeOfIssue?.toString().length !== 0">
                     <WrapText :msg="useTranslation?.invoiceTerms?.placeOfIssue" />
                 </span>
-                <input class="input-class" :placeholder="useTranslation?.invoiceTerms?.placeOfIssue" maxlength="30"
+                <input :key="'placeOfIssue'" class="input-class" :placeholder="useTranslation?.invoiceTerms?.placeOfIssue" maxlength="30"
                     v-bind:class="{ 'span-bottom': invoiceSettings.placeOfIssue?.toString().length !== 0 }"
                     v-model="invoiceSettings.placeOfIssue">
             </div>
@@ -236,15 +203,15 @@ onMounted(async () => {
                 <span class="placeholder-text">
                     <WrapText :msg="useTranslation?.invoiceTerms?.dueDate" />
                 </span>
-                <input class="input-class span-bottom" v-model="dueDate"
-                    pattern="\d{2}/\d{2}/\d{4}" title="DD/MM/YYYY format"
+                <input :key="'dueDate'" class="input-class span-bottom" v-model="invoiceSettings.dueDate"
+                    pattern="\d{2}/\d{2}/\d{4}" title="DD/MM/YYYY format"  type="date"
                     :placeholder="useTranslation?.invoiceTerms?.dueDate">
             </div>
             <div>
                 <span class="placeholder-text" v-if="invoiceSettings.paymentMethod?.toString().length !== 0">
                     <WrapText :msg="useTranslation?.invoiceTerms?.paymentMethod" />
                 </span>
-                <input class="input-class" :placeholder="useTranslation?.invoiceTerms?.paymentMethod" maxlength="30"
+                <input :key="'paymentMethod'" class="input-class" :placeholder="useTranslation?.invoiceTerms?.paymentMethod" maxlength="30"
                     v-bind:class="{ 'span-bottom': invoiceSettings.paymentMethod?.toString().length !== 0 }"
                     v-model="invoiceSettings.paymentMethod">
             </div>
@@ -253,9 +220,9 @@ onMounted(async () => {
             <span class="placeholder-text">
                 <WrapText :msg="useTranslation?.invoiceTerms?.issueDate" />
             </span>
-            <input class="input-class span-bottom" v-model="issueDate"
+            <input :key="'issueDate'" class="input-class span-bottom" v-model="invoiceSettings.issueDate"
                 pattern="\d{2}/\d{2}/\d{4}" title="DD/MM/YYYY format"
-                style="width: calc(100% - 10px);"
+                style="width: calc(100% - 10px);" type="date"
                 :placeholder="useTranslation?.invoiceTerms?.issueDate">
         </div>
         <div style="margin-top: 10px;">
@@ -279,7 +246,7 @@ onMounted(async () => {
                     <span class="placeholder-text">
                         <WrapText :msg="useTranslation?.invoiceTerms?.saleDate" />
                     </span>
-                    <input class="input-class span-bottom" v-model="saleDate"
+                    <input class="input-class span-bottom" v-model="invoiceSettings.saleDate" type="date"
                         pattern="\d{2}/\d{2}/\d{4}" title="DD/MM/YYYY format"
                         :placeholder="useTranslation?.invoiceTerms?.saleDate">
                 </div>
@@ -297,7 +264,7 @@ onMounted(async () => {
                     <span class="placeholder-text">
                         <WrapText :msg="useTranslation?.invoiceTerms?.dueDate" />
                     </span>
-                    <input class="input-class span-bottom" v-model="dueDate"
+                    <input class="input-class span-bottom" v-model="invoiceSettings.dueDate"
                         pattern="\d{2}/\d{2}/\d{4}" title="DD/MM/YYYY format"
                         :placeholder="useTranslation?.invoiceTerms?.dueDate">
                 </div>
@@ -315,9 +282,9 @@ onMounted(async () => {
             <span class="placeholder-text">
                 <WrapText :msg="useTranslation?.invoiceTerms?.issueDate" />
             </span>
-            <input class="input-class span-bottom" v-model="issueDate"
+            <input class="input-class span-bottom" v-model="invoiceSettings.issueDate"
                 pattern="\d{2}/\d{2}/\d{4}" title="DD/MM/YYYY format"
-                style="width: calc(100% - 10px);"
+                style="width: calc(100% - 10px);" type="date"
                 :placeholder="useTranslation?.invoiceTerms?.issueDate">
         </div>
         <div style="margin-top: 10px;">

@@ -176,7 +176,7 @@ export default {
                                         {{ item.unit }}
                                     </td>
                                     <td>
-                                        {{ item.netUnitValue }}
+                                        {{ (item.netUnitValue || 0).toFixed(2) }}
                                     </td>
                                     <td v-if="item.vatRate === 'vatExempt'">
                                         {{ props.useTranslation?.vatExemptTranslation }}
@@ -185,10 +185,10 @@ export default {
                                         {{ item.vatRate }}
                                     </td>
                                     <td>
-                                        {{ item.netValue }}
+                                        {{ (item.netValue || 0).toFixed(2) }}
                                     </td>
                                     <td>
-                                        {{ item.grossValue }}
+                                        {{ (item.grossValue || 0).toFixed(2) }}
                                     </td>
                                 </tr>
                             </tbody>
