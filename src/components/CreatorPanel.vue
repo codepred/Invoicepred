@@ -7,7 +7,7 @@ import IconRemovingTick from './icons/IconRemovingTick.vue'
 import IconPlusTick from './icons/IconPlusTick.vue'
 import DisplayErrorModal from './modals/DisplayErrorModal.vue'
 import DownloadPdf from './DownloadPdf.vue'
-import { ref, Ref, onMounted, watch, getCurrentInstance, computed } from 'vue'
+import { ref, Ref, onMounted, watch, getCurrentInstance } from 'vue'
 import CheckboxModal from './modals/CheckboxModal.vue'
 
 const instance = getCurrentInstance()
