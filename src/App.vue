@@ -4,12 +4,27 @@ import FooterHeader from './components/FooterHeader.vue';
 
 import englishTranslation from './assets/englishTranslation.json'
 import polishTranslation from './assets/polishTranslation.json'
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, provide } from 'vue'
 
 const useTranslation = ref<typeof englishTranslation | typeof polishTranslation>(englishTranslation)
 
 const chosenCurrency = ref<string | null>("€")
 const chosenLanguage = ref<string | null>("EN")
+const isCsvModalOpen = ref(false)
+
+const openCsvModal = () => {
+  isCsvModalOpen.value = true
+}
+
+const closeCsvModal = () => {
+  isCsvModalOpen.value = false
+}
+
+provide('csvModal', {
+  isOpen: isCsvModalOpen,
+  open: openCsvModal,
+  close: closeCsvModal
+})
 
 const getLocalStorageData = (action: string) => {
   if (action === 'updated') {
@@ -65,7 +80,8 @@ onMounted(() => {
 
 <template>
   <TopHeader :currencyList="useTranslation?.currencyList" :languageList="useTranslation?.languageList"
-    @update:chosenCurrency="chosenCurrency = $event" @update:chosenLanguage="chosenLanguage = $event" />
+    @update:chosenCurrency="chosenCurrency = $event" @update:chosenLanguage="chosenLanguage = $event" 
+    @openCsvModal="openCsvModal" />
   <div
     style="top: 48px; padding: 40px 48px 0px 48px; background-color: #FAFAFA; min-height: calc(100vh - 48px); width: 100%; display: flex; justify-content: center;"
     class="remove-padding">

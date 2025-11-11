@@ -28,6 +28,10 @@ watch(chosenLanguage, () => {
   instance?.emit('update:chosenLanguage', chosenLanguage.value)
 })
 
+const openCsvModal = () => {
+  instance?.emit('openCsvModal')
+}
+
 </script>
 
 <template>
@@ -37,6 +41,15 @@ watch(chosenLanguage, () => {
         <IconLogo />
       </div>
       <div style="display: flex; gap: 15px;">
+        <div style="display: flex; gap: 20px; align-items: center; width: fit-content;">
+          <button 
+            @click="openCsvModal" 
+            class="csv-import-button"
+            style="height: 40px; padding: 0px 16px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 500;"
+          >
+            Import CSV
+          </button>
+        </div>
         <div style="display: flex; gap: 20px; align-items: center; width: fit-content;">
           <select class="input-class" v-model="chosenLanguage" style="height: 40px; padding: 0px 12px;" data-testid="select-language" >
             <option v-for="language in props.languageList" :value="language?.value">
